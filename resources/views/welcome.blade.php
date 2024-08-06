@@ -21,8 +21,8 @@
     <body>
         <div class="container">
             <div class="text-center">
-                <h1>Velkommen til Bramming Efterskole</h1>
-                <p>Her kan du finde information om skolen og se hvilke elever der går på skolen.</p>
+                <h1>Så er året slut på Bramming Efterskole</h1>
+                <p>Her kan du skrive en kommentar til hver elev på skolen</p>
                 @if (Auth::check())
                     <a href="{{ route('index') }}" class="btn btn-primary">Se elever</a>
                 @else
