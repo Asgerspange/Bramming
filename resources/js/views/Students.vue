@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <template v-for="student in filteredStudents">
-                <div class="col-3 col-sm-6">
+                <div class="col-3 col-sm-6 col-md-3">
                     <div class="card" @click="goTo(student)">
                         <div class="card-body">
                             <img :src="student.image ?? '/generic.png'" class="card-img-top student-image" >
