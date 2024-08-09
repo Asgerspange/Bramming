@@ -31,8 +31,8 @@
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Log ind</button>
                                 <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('register') }}'">Lav bruger</button>
+                                <button type="submit" class="btn btn-primary">Log ind</button>
                             </div>
                         </form>
                     </div>

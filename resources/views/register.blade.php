@@ -35,8 +35,8 @@
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Opret bruger</button>
                                 <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('login') }}'">Log ind</button>
+                                <button type="submit" class="btn btn-primary">Opret bruger</button>
                             </div>
                         </form>
                     </div>
