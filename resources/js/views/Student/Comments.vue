@@ -48,8 +48,11 @@
                 axios.post('/api/addComment', {
                     comment: this.comment,
                     student_id: this.student.id
-                }).then(() => {
-                    window.location.reload()
+                }).then((response) => {
+                    if (!response.status === 208) {
+                        window.location.reload()
+                    }
+                    this.$toast.add({severity: 'error', summary: 'Fejl', detail: 'Du har allerede skrevet en kommentar til denne elev', life: 3000})
                 })
             }
         }

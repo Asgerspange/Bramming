@@ -17,6 +17,7 @@
         </div>
         <router-view></router-view>
     </div>
+    <Toast position="top-right" />
 </template>
 
 <script>
@@ -42,7 +43,7 @@
 <style lang="scss" scoped>
     .student-image {
         width: 100%;
-        height: 600px;
+        height: 400px;
         object-fit: cover;
     }
 

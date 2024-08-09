@@ -1,9 +1,13 @@
 <template>
     <div class="container">
         <h1 class="text-center">Elever</h1>
-    
+        <div class="row justify-content-end">
+            <div class="col-12 col-md-4 mb-3">
+                <InputText v-model="search" placeholder="Søg efter en elev" class="search" />
+            </div>
+        </div>
         <div class="row">
-            <template v-for="student in students">
+            <template v-for="student in filteredStudents">
                 <div class="col-3">
                     <div class="card" @click="goTo(student)">
                         <div class="card-body">
@@ -21,12 +25,19 @@
     export default {
         data () {
             return {
-                students: []
+                students: [],
+                search: ''
             }
         },
 
         mounted() {
             this.getStudents()
+        },
+
+        computed: {
+            filteredStudents() {
+                return this.students.filter(student => student.name.toLowerCase().includes(this.search.toLowerCase()))
+            }
         },
 
         methods: {
@@ -44,6 +55,10 @@
 <style lang="scss" scoped>
     .card:hover {
         cursor: pointer;
+    }
+
+    .search {
+        width: 100%;
     }
 
     .student-image {

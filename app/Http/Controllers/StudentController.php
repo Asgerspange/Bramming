@@ -14,7 +14,13 @@ class StudentController extends Controller
         $data = Student::with('comments')->with('commentedOn')->get();
         foreach ($data as $d) {
             foreach ($d->comments as $comment) {
-                $comment->author = Student::find($comment->student_id);
+                $comment->author = Student::find($comment->user_id);
+                $comment->to = Student::find($comment->student_id);
+            }
+
+            foreach ($d->commentedOn as $comment) {
+                $comment->author = Student::find($comment->user_id);
+                $comment->to = Student::find($comment->student_id);
             }
         }
 
