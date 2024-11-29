@@ -24,7 +24,7 @@
                 <h1>Så er året slut på Bramming Efterskole</h1>
                 <p>Her kan du skrive en kommentar til hver elev på skolen</p>
                 @if (Auth::check())
-                    <a href="{{ route('index') }}" class="btn btn-primary">Se elever</a>
+                    <a href="/students" class="btn btn-primary">Se elever</a>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-primary">Log ind</a>
                 @endif

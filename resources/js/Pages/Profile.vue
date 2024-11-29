@@ -13,7 +13,7 @@
         </div>
         <div class="d-flex justify-content-center gap-2">
             <router-link :to="'/student/' + student.unilogin_user + '/comments'" class="btn btn-primary">Kommentarer</router-link>
-            <router-link :to="'/student/' + student.unilogin_user + '/commented'" class="btn btn-primary">Elevens kommentarer</router-link>
+            <router-link :to="'/student/' + student.unilogin_user + '/commented'" class="btn btn-primary">Dine kommentarer</router-link>
         </div>
         <router-view></router-view>
     </div>
@@ -33,7 +33,7 @@
 
         methods: {
             getStudent() {
-                this.student = window.laravel.students.find(student => student.unilogin_user === this.$route.params.uniLogin)
+                this.student = window.laravel.student
             }
         }
     }

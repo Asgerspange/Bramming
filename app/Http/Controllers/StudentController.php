@@ -9,18 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-    public function index()
-    {
-        $data = Student::with('comments')->with('commentedOn')->get();
-        foreach ($data as $d) {
-            foreach ($d->comments as $comment) {
-                $comment->author = Student::find($comment->student_id);
-            }
-        }
-
-        return view('index')->with('students', $data);
-    }
-
     public function register(Request $request)
     {
         $request->validate([
@@ -53,6 +41,6 @@ class StudentController extends Controller
 
         Auth::login($student);
 
-        return redirect()->route('index');
+        return redirect('/');
     }
 }

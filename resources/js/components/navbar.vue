@@ -1,7 +1,7 @@
 <template>
     <nav class="d-flex justify-content-center gap-4">
         <template v-for="route in routes">
-            <router-link class="route-link" :to="route.path">{{ route.name }}</router-link>
+            <a class="route-link" :href="route.path">{{ route.name }}</a>
         </template>
         <a href="/logout" class="route-link">Logout</a>
     </nav>

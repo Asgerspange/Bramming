@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\{
+    StudentController,
+    RouteController
+};
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -18,9 +21,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/students', [StudentController::class, 'index'])
-    ->name('index');
 
 Route::get('/login', function () {
     return view('login');
@@ -40,6 +40,6 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('login');
     })->name('logout');
 
-    Route::get('{any}', [StudentController::class, 'index'])->where('any', '.*')
-        ->name('app');
+    Route::get('/student/{unilogin}', [RouteController::class, 'student']);
+    Route::get('/students', [RouteController::class, 'students']);
 });

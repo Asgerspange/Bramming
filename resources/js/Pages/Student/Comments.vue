@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="text-center">Kommentarer</h1>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" v-if="!isSelf()">
                 <form @submit.prevent="addComment">
                     <div class="form-group">
                         <label for="comment">Kommentar</label>
@@ -31,17 +31,23 @@
         data() {
             return {
                 comment: '',
-                student: ''
+                student: '',
+                self: ''
             }
         },
 
-        mounted() {
+        mounted () {
             this.getStudent()
         },
 
         methods: {
             getStudent() {
+                this.self = window.laravel.student
                 this.student = window.laravel.students.find(student => student.unilogin_user === this.$route.params.uniLogin)
+            },
+
+            isSelf() {
+                return this.self.unilogin_user === this.student.unilogin_user
             },
 
             addComment() {

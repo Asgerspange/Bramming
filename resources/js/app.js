@@ -1,17 +1,22 @@
 import './bootstrap';
 
-import { createApp } from 'vue';
-import router from './router';
-import App from './App.vue';
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/vue3'
 
-const laravelDataScript = document.getElementById('oi234j234n1');
-if (laravelDataScript) {
-    const laravelData = JSON.parse(laravelDataScript.textContent);
-    window.laravel = laravelData;
-}
+const cleanApp = () => {
+    document.getElementById('app').removeAttribute('data-page');
+  };
+createInertiaApp({
+    resolve: name => {
+        const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
+        return pages[`./Pages/${name}.vue`]
+      },
+    setup({ el, App, props, plugin }) {
+        const app = createApp({ render: () => h(App, props) })
+            .use(plugin)
 
-
-const app = createApp(App)
-app.use(router)
-
-app.mount('#app');
+        app.mount(el);
+    },
+}).then(
+    cleanApp()
+);
