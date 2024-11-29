@@ -12,8 +12,8 @@
         data () {
             return {
                 routes: [
-                    { name: 'Students', path: '/students' },
-                    { name: 'Profile', path: '/profile' },
+                    { name: 'Elever', path: '/students' },
+                    // { name: 'Profil', path: '/profile' },
                 ]
             }
         }
