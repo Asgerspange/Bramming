@@ -31,6 +31,6 @@ class RouteController extends Controller
             $comment->author = Student::find($comment->user_id);
         }
 
-        return Inertia::render('Student/Student', ['student' => $student]);
+        return Inertia::render('Student/Student', ['student' => $student, 'self' => Student::find(Auth::id())]);
     }
 }

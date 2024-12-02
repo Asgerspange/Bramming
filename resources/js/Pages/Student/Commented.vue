@@ -16,24 +16,16 @@
     </div>
 </template>
 
-<script>
-    import axios from 'axios'
-    export default {
-        data() {
-            return {
-                comment: '',
-                student: ''
-            }
-        },
+<script setup>
+    import { ref, onMounted } from 'vue'
 
-        mounted() {
-            this.getStudent()
-        },
+    const student = ref('')
 
-        methods: {
-            getStudent() {
-                this.student = window.laravel.students.find(student => student.unilogin_user === this.$route.params.uniLogin)
-            }
-        }
+    const getStudent = () => {
+        student.value = window.laravel.students.find(student => student.unilogin_user === window.location.pathname.split('/')[2])
     }
+
+    onMounted(() => {
+        getStudent()
+    })
 </script>

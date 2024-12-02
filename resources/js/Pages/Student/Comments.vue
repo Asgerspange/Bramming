@@ -16,7 +16,6 @@
                     <div class="card">
                         <div class="card-body d-flex gap-2">
                             <p>{{ comment.comment }}</p>
-                            <small>{{ comment.author.name }} - {{ comment.author.unilogin_user }}</small>
                         </div>
                     </div>
                 </div>
@@ -25,42 +24,34 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import axios from 'axios'
-    export default {
-        data() {
-            return {
-                comment: '',
-                student: '',
-                self: ''
+    import { ref, defineProps } from 'vue'
+
+    const props = defineProps(['student', 'self'])
+    const student = ref(props.student)
+    const comment = ref('')
+
+    const isSelf = () => {
+        return props.self.unilogin_user === student.value.unilogin_user
+    }
+
+    const addComment = () => {
+        axios.post('/api/addComment', {
+            comment: comment.value,
+            student_id: student.value.id
+        }).then((response) => {
+            if (!response.status === 208) {
+                window.location.reload()
+                return;
             }
-        },
-
-        mounted () {
-            this.getStudent()
-        },
-
-        methods: {
-            getStudent() {
-                this.self = window.laravel.student
-                this.student = window.laravel.students.find(student => student.unilogin_user === this.$route.params.uniLogin)
-            },
-
-            isSelf() {
-                return this.self.unilogin_user === this.student.unilogin_user
-            },
-
-            addComment() {
-                axios.post('/api/addComment', {
-                    comment: this.comment,
-                    student_id: this.student.id
-                }).then((response) => {
-                    if (!response.status === 208) {
-                        window.location.reload()
-                    }
-                    this.$toast.add({severity: 'error', summary: 'Fejl', detail: 'Du har allerede skrevet en kommentar til denne elev', life: 3000})
-                })
-            }
-        }
+            alert('Du har allerede skrevet en kommentar til denne elev')
+        })
     }
 </script>
+
+<style>
+    .card p {
+        margin: 0;
+    }
+</style>
