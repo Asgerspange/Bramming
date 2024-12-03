@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="text-center">Kommentarer</h1>
         <div class="row">
-            <div class="col-12" v-if="!isSelf()">
+            <div class="col-12">
                 <form @submit.prevent="addComment">
                     <div class="form-group">
                         <label for="comment">Kommentar</label>
@@ -11,15 +11,17 @@
                     <button class="btn btn-primary mt-2">Tilføj kommentar</button>
                 </form>
             </div>
-            <template v-for="comment in student.comments">
-                <div class="col-12 mt-2">
+            <div class="col-12 mt-2">
+                <template  v-if="localComment?.comment">
+                    <small>Du har skrevet: </small>
                     <div class="card">
-                        <div class="card-body d-flex gap-2">
-                            <p>{{ comment.comment }}</p>
+                        <div class="card-body d-flex justify-content-between gap-2">
+                            <p>{{ localComment?.comment }}</p>
+                            <i class="material-symbols cursor-pointer" @click="deleteComment">delete</i>
                         </div>
                     </div>
-                </div>
-            </template>
+                </template>
+            </div>
         </div>
     </div>
 </template>
@@ -28,24 +30,29 @@
     import axios from 'axios'
     import { ref, defineProps } from 'vue'
 
-    const props = defineProps(['student', 'self'])
+    const props = defineProps(['student', 'comment'])
     const student = ref(props.student)
+    const localComment = ref(props.comment)
     const comment = ref('')
 
-    const isSelf = () => {
-        return props.self.unilogin_user === student.value.unilogin_user
-    }
-
     const addComment = () => {
+        if (localComment?.value?.comment) {
+            alert('Du har allerede skrevet en kommentar til denne elev')
+            return;
+        }
         axios.post('/api/addComment', {
             comment: comment.value,
             student_id: student.value.id
         }).then((response) => {
-            if (!response.status === 208) {
-                window.location.reload()
-                return;
-            }
-            alert('Du har allerede skrevet en kommentar til denne elev')
+            window.location.reload()
+        })
+    }
+
+    const deleteComment = () => {
+        axios.post('/api/deleteComment', {
+            student_id: student.value.id
+        }).then(() => {
+            localComment.value = ''
         })
     }
 </script>

@@ -25,4 +25,19 @@ class CommentController extends Controller
             'user_id' => Auth::user()->id,
         ]);
     }
+
+    public function deleteComment(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required|integer'
+        ]);
+
+        $comment = Comment::where('student_id', $request->student_id)->where('user_id', Auth::user()->id)->first();
+
+        if (!$comment) {
+            return response()->json(['message' => 'You have not commented on this student yet'], 404);
+        }
+
+        $comment->delete();
+    }
 }

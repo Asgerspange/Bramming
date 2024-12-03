@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <navbar></navbar>
-        <slot />
-    </div>
+    <navbar></navbar>
+    <slot />
 </template>
 
 <script>

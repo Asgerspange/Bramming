@@ -19,7 +19,7 @@
                     @click="goTo(student)"
                 >
                     <img 
-                        :src="student.image || '/generic.png'" 
+                        :src="student.profile_picture?.picture || '/generic.png'" 
                         alt="Profilbillede" 
                         class="student-image" 
                     />

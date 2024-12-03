@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\{
+    Student,
+    ProfilePicture
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -42,5 +45,17 @@ class StudentController extends Controller
         Auth::login($student);
 
         return redirect('/');
+    }
+
+    public function studentImage(Request $request)
+    {
+        $student = Auth::user();
+        ProfilePicture::updateOrCreate(
+            ['unilogin' => $student->unilogin_user],
+            ['picture' => $request->image]
+        );
+
+
+        return redirect()->back()->with('success', 'Profile picture uploaded successfully!');
     }
 }

@@ -7,8 +7,10 @@ import primevue from 'primevue/config';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import InputText from 'primevue/inputtext';
+import Paginator from 'primevue/paginator';
 
 import 'primevue/resources/themes/aura-light-blue/theme.css';
+import '../css/app.css';
 
 const cleanApp = () => {
     document.getElementById('app').removeAttribute('data-page');
@@ -25,6 +27,7 @@ createInertiaApp({
             .use(primevue)
             .component('Toast', Toast)
             .component('InputText', InputText)
+            .component('Paginator', Paginator);
 
         app.mount(el);
     },

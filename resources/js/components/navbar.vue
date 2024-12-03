@@ -13,7 +13,7 @@
             return {
                 routes: [
                     { name: 'Elever', path: '/students' },
-                    // { name: 'Profil', path: '/profile' },
+                    { name: 'Profil', path: '/profile' },
                 ]
             }
         }

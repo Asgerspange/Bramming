@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
@@ -11,26 +12,27 @@ class RouteController extends Controller
 {
     public function students()
     {
-        $students = Student::with('comments')->with('commentedOn')->get();
-        // $student = Student::with('comments')->with('commentedOn')->find(Auth::id());
-
-        foreach ($students as $d) {
-            foreach ($d->comments as $comment) {
-                $comment->author = Student::find($comment->user_id);
-            }
-        }
+        $students = Student::with('profilePicture')->whereNot('id', Auth::id())->get();
 
         return Inertia::render('Students', ['students' => $students]);
     }
 
     public function student(Request $request)
     {
-        $student = Student::with('comments')->with('commentedOn')->where('unilogin_user', $request->unilogin)->first();
-        
-        foreach ($student->comments as &$comment) {
-            $comment->author = Student::find($comment->user_id);
-        }
+        $student = Student::where('unilogin_user', $request->unilogin)->first();
+        $comment = Comment::where('student_id', $student->id)->where('user_id', Auth::id())->first();
 
-        return Inertia::render('Student/Student', ['student' => $student, 'self' => Student::find(Auth::id())]);
+        return Inertia::render('Student/Student', ['student' => $student, 'comment' => $comment]);
+    }
+
+    public function profile()
+    {
+        $student = Student::with('commentedOn')->with('profilePicture')->find(Auth::id());
+        $students = $student->usersNotCommentedOn();
+
+        $totalStudents = Student::count() - 1;
+        $totalComments = $totalStudents - $students->count();
+
+        return Inertia::render('Profile', ['student' => $student, 'students' => $students, 'totalComments' => $totalComments, 'totalStudents' => $totalStudents]);
     }
 }

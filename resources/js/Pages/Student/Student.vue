@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="comments-section">
-                <Comments :student="student" :self="self" />
+                <Comments :student="student" :comment="comment" />
             </div>
         </div>
     </App>
@@ -24,7 +24,7 @@
     import { defineProps } from 'vue';
     import Comments from './Comments.vue';
 
-    const props = defineProps(['student', 'self']);
+    const props = defineProps(['student', 'comment']);
 </script>
 
 <style lang="scss" scoped>

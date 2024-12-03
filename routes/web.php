@@ -42,4 +42,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/student/{unilogin}', [RouteController::class, 'student']);
     Route::get('/students', [RouteController::class, 'students']);
+    Route::get('/profile', [RouteController::class, 'profile']);
 });

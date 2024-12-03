@@ -38,4 +38,17 @@ class Student extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id');
     }
 
+    public function profilePicture()
+    {
+        return $this->hasOne(ProfilePicture::class, 'unilogin', 'unilogin_user');
+    }
+
+    public function usersNotCommentedOn()
+    {
+        $commentedUserIds = $this->commentedOn()->pluck('student_id')->toArray();
+        return Student::whereNotIn('id', $commentedUserIds)
+            ->where('id', '!=', $this->id)
+            ->with('profilePicture')
+            ->get();
+    }
 }
