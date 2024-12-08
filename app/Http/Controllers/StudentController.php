@@ -52,12 +52,8 @@ class StudentController extends Controller
 
     public function deleteStudents()
     {
-        $students = Student::where('is_teacher', false)->get();
-
-        foreach ($students as $student) {
-            Comment::where('student_id', $student->id)->orWhere('user_id', $student->id)->delete();
-            $student->delete();
-        }
+        Student::where('is_teacher', false)->delete();
+        Comment::query()->delete();
 
         return new JsonResponse(['message' => 'All students deleted successfully!']);
     }
