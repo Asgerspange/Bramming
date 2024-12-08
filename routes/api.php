@@ -26,7 +26,12 @@ Route::middleware('web')->group(function () {
     Route::post('/deleteComment', [CommentController::class, 'deleteComment']);
     Route::post('/student/image', [StudentController::class, 'studentImage']);
 
-    Route::post('/download-visibility', [StudentController::class, 'downloadVisibility'])->middleware('admin');
-    Route::post('/delete-students', [StudentController::class, 'deleteStudents'])->middleware('admin');
+    Route::middleware('admin')->group(function () {
+        Route::post('/download-visibility', [StudentController::class, 'downloadVisibility']);
+        Route::post('/delete-students', [StudentController::class, 'deleteStudents']);
+
+        Route::post('/admin/make-teacher', [StudentController::class, 'makeTeacher']);
+        Route::post('/admin/remove-teacher', [StudentController::class, 'removeTeacher']);
+    });
     Route::get('/download-comments', [StudentController::class, 'downloadComments']);
 });

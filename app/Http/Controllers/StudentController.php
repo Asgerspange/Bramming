@@ -114,4 +114,18 @@ class StudentController extends Controller
 
         return redirect()->back()->with('success', 'Profile picture uploaded successfully!');
     }
+
+    public function makeTeacher(Request $request)
+    {
+        Student::where('id', $request->id)->update(['is_teacher' => true]);
+
+        return new JsonResponse(['message' => 'Teacher status updated successfully!']);
+    }
+
+    public function removeTeacher(Request $request)
+    {
+        Student::where('id', $request->id)->update(['is_teacher' => false]);
+
+        return new JsonResponse(['message' => 'Teacher status updated successfully!']);
+    }
 }

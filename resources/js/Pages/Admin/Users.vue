@@ -94,10 +94,10 @@
     };
 
     const makeAdmin = (id) => {
-        axios.post('/api/admin/make-admin', { id })
+        axios.post('/api/admin/make-teacher', { id })
             .then(() => {
                 let user = customers.value.find(user => user.id === id);
-                user.is_admin = true;
+                user.is_teacher = true;
             })
             .catch(error => {
                 console.error(error);
@@ -105,10 +105,10 @@
     };
 
     const removeAdmin = (id) => {
-        axios.post('/api/admin/remove-admin', { id })
+        axios.post('/api/admin/remove-teacher', { id })
             .then(() => {
                 let user = customers.value.find(user => user.id === id);
-                user.is_admin = false;
+                user.is_teacher = false;
             })
             .catch(error => {
                 console.error(error);
