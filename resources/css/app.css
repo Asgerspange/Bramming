@@ -23,5 +23,17 @@
   }
 
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.text-blue {
+  color: blue;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
 }

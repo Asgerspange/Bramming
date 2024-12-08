@@ -1,64 +1,28 @@
 <template>
     <App>
-        <div class="container">
-            <button class="toggle-btn" @click="toggleDownloadVisibility">
-                {{ isDownloadVisible ? 'Skjul kommentarer' : 'Vis kommentarer' }}
-            </button>
-      
-            <div v-if="isDownloadVisible" class="download-section">
-                <h2>Eleverne kan hente deres kommentarer</h2>
+        <div class=" row justify-content-center gap-4">
+            <div class="d-flex gap-4 justify-content-center">
+                <div class="d-flex gap-2">
+                    <button v-for="tab in tabs" :key="tab.name" @click="changeTab(tab.name)" :class="{ 'bg-blue-500 text-blue': activeTab === tab.name }" class="px-4 py-2 rounded-md border border-blue-500 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        {{ tab.label }}
+                    </button>
+                </div>
             </div>
-            <div v-else class="download-section">
-                <h2>Eleverne kan ikke hente deres kommentarer</h2>
-            </div>
+            <slot />
         </div>
     </App>
 </template>
-  
 <script setup>
     import App from '@/js/App.vue';
-    import { ref, defineProps } from 'vue';
-    import axios from 'axios';
-    
-    const props = defineProps(['downloadVisible']);
-    const isDownloadVisible = ref(props.downloadVisible);
-    
-    const toggleDownloadVisibility = () => {
-        isDownloadVisible.value = !isDownloadVisible.value;
+    import { ref } from 'vue';
 
-        axios.post('/api/download-visibility', {
-            visibility: isDownloadVisible.value,
-        });
+    const activeTab = ref('users');
+    const tabs = [
+        { name: 'users', label: 'Brugere' },
+        { name: 'actions', label: 'Actions' },
+    ];
+
+    const changeTab = (tab) => {
+        window.location.href = `/admin/${tab}`;
     };
 </script>
-  
-<style scoped>
-    .container {
-        padding: 20px;
-        text-align: center;
-    }
-
-    .toggle-btn {
-        background-color: #58bc82;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .toggle-btn:hover {
-        background-color: #46a86c;
-    }
-
-    .download-section {
-        margin-top: 20px;
-        padding: 20px;
-        background: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        text-align: left;
-    }
-</style>
-  

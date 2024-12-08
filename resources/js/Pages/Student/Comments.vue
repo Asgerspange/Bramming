@@ -28,12 +28,23 @@
 
 <script setup>
     import axios from 'axios'
-    import { ref, defineProps } from 'vue'
+    import { ref, defineProps, watch, onMounted } from 'vue'
+    import { useStore } from '@/js/store.js'
 
     const props = defineProps(['student', 'comment'])
     const student = ref(props.student)
     const localComment = ref(props.comment)
     const comment = ref('')
+
+    watch(() => comment.value, (newVal) => {
+        useStore().setMessage({ [student.value.unilogin_user]: newVal })
+    })
+
+    onMounted(() => {
+        if (!localComment?.value?.comment) {
+            comment.value = useStore().getMessage(student.value.unilogin_user)
+        }
+    })
 
     const addComment = () => {
         if (localComment?.value?.comment) {

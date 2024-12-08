@@ -19,7 +19,7 @@ class RouteController extends Controller
 
     public function admin()
     {
-        return Inertia::render('Admin', ['downloadVisible' => config('admin.downloadVisible')]);
+        return Inertia::render('Admin');
     }
 
     public function student(Request $request)
@@ -39,5 +39,17 @@ class RouteController extends Controller
         $totalComments = $totalStudents - $students->count();
 
         return Inertia::render('Profile', ['student' => $student, 'students' => $students, 'totalComments' => $totalComments, 'totalStudents' => $totalStudents, 'downloadVisible' => config('admin.downloadVisible')]);
+    }
+
+    public function users()
+    {
+        $students = Student::with('profilePicture')->get();
+
+        return Inertia::render('Admin/Users', ['users' => $students]);
+    }
+
+    public function actions()
+    {
+        return Inertia::render('Admin/Actions', ['downloadVisible' => config('admin.downloadVisible')]);
     }
 }

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\{
     Student,
-    ProfilePicture
+    ProfilePicture,
+    Comment
 };
-use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Dompdf\Dompdf;
 
 class StudentController extends Controller
 {
@@ -49,13 +50,43 @@ class StudentController extends Controller
         return new JsonResponse(['message' => 'Download visibility updated successfully!']);
     }
 
+    public function deleteStudents()
+    {
+        $students = Student::where('is_teacher', false)->get();
+
+        foreach ($students as $student) {
+            Comment::where('student_id', $student->id)->orWhere('user_id', $student->id)->delete();
+            $student->delete();
+        }
+
+        return new JsonResponse(['message' => 'All students deleted successfully!']);
+    }
+
     public function downloadComments()
     {
-        $student = Student::with('comments')->find(Auth::id());
-        dd($student);
-        return response()->streamDownload(function () use ($comments) {
-            echo $comments->toJson();
-        }, 'comments.json');
+        $student = Student::with(['comments', 'profilePicture'])->find(Auth::id());
+
+        $dompdf = new Dompdf();
+        $comments = $student->comments->pluck('comment')->toArray();
+
+        $logo = 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('bramming_logo.png')));
+        $html = view('comments_pdf', [
+            'comments' => $comments,
+            'logo' => $logo,
+            'name' => $student->name,
+            'profilePicture' => $student->profilePicture->picture
+        ])->render();
+
+        // return view('comments_pdf', [
+        //     'comments' => $comments,
+        //     'logo' => $logo,
+        //     'profilePicture' => $student->profilePicture->picture
+        // ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $dompdf->stream('Bramming Efterskole - Kommentarer til ' . $student->name . '.pdf');
     }
 
     public function login(Request $request)

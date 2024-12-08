@@ -19,7 +19,7 @@
                 </div>
             </div>
             <template v-if="downloadVisible">
-                <div class="mt-4">
+                <div class="mt-4 text-center">
                     <a href="/api/download-comments" class="btn btn-primary">Download kommentarer</a>
                 </div>
             </template>

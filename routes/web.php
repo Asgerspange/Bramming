@@ -44,5 +44,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/students', [RouteController::class, 'students']);
     Route::get('/profile', [RouteController::class, 'profile'])->name('profile');
 
-    Route::get('/admin', [RouteController::class, 'admin'])->middleware('admin')->name('admin');
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin', [RouteController::class, 'admin'])->name('admin');
+        Route::get('/admin/users', [RouteController::class, 'users']);
+        Route::get('/admin/actions', [RouteController::class, 'actions']);
+    });
 });

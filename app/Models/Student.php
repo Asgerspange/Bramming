@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Student extends Authenticatable
 {
+    use SoftDeletes;
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
