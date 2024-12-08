@@ -32,7 +32,7 @@ Route::get('/register', function () {
 
 Route::post('/register', [StudentController::class, 'register']);
 
-Route::post('/login', [StudentController::class, 'login']);
+Route::post('/login', [StudentController::class, 'login'])->name('login');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', function () {
@@ -42,5 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/student/{unilogin}', [RouteController::class, 'student']);
     Route::get('/students', [RouteController::class, 'students']);
-    Route::get('/profile', [RouteController::class, 'profile']);
+    Route::get('/profile', [RouteController::class, 'profile'])->name('profile');
+
+    Route::get('/admin', [RouteController::class, 'admin'])->middleware('admin')->name('admin');
 });

@@ -9,6 +9,11 @@
     @inertiaHead
 </head>
 <body>
+    @if (Auth::check())
+        @if (Auth::user()->is_teacher)
+            <a href="{{ route('admin') }}">Admin</a>
+        @endif
+    @endif
     @inertia
 </body>
 </html>

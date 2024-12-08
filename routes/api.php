@@ -25,4 +25,7 @@ Route::middleware('web')->group(function () {
     Route::post('/editComment', [CommentController::class, 'editComment']);
     Route::post('/deleteComment', [CommentController::class, 'deleteComment']);
     Route::post('/student/image', [StudentController::class, 'studentImage']);
+
+    Route::post('/download-visibility', [StudentController::class, 'downloadVisibility'])->middleware('admin');
+    Route::get('/download-comments', [StudentController::class, 'downloadComments']);
 });

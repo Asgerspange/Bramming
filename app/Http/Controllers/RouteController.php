@@ -17,6 +17,11 @@ class RouteController extends Controller
         return Inertia::render('Students', ['students' => $students]);
     }
 
+    public function admin()
+    {
+        return Inertia::render('Admin', ['downloadVisible' => config('admin.downloadVisible')]);
+    }
+
     public function student(Request $request)
     {
         $student = Student::where('unilogin_user', $request->unilogin)->first();
@@ -33,6 +38,6 @@ class RouteController extends Controller
         $totalStudents = Student::count() - 1;
         $totalComments = $totalStudents - $students->count();
 
-        return Inertia::render('Profile', ['student' => $student, 'students' => $students, 'totalComments' => $totalComments, 'totalStudents' => $totalStudents]);
+        return Inertia::render('Profile', ['student' => $student, 'students' => $students, 'totalComments' => $totalComments, 'totalStudents' => $totalStudents, 'downloadVisible' => config('admin.downloadVisible')]);
     }
 }

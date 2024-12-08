@@ -6,6 +6,8 @@ use App\Models\{
     Student,
     ProfilePicture
 };
+use Illuminate\Database\Eloquent\Casts\Json;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +29,33 @@ class StudentController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'User registered successfully!');
+    }
+
+    public function downloadVisibility(Request $request)
+    {
+        $request->validate([
+            'visibility' => 'required|boolean',
+        ]);
+        config(['admin.downloadVisible' => $request->visibility]);
+
+        $admin = config('admin');
+
+        $admin['downloadVisible'] = $request->visibility;
+
+        $configContent = '<?php return ' . var_export($admin, true) . ';';
+
+        file_put_contents(config_path('admin.php'), $configContent);
+
+        return new JsonResponse(['message' => 'Download visibility updated successfully!']);
+    }
+
+    public function downloadComments()
+    {
+        $student = Student::with('comments')->find(Auth::id());
+        dd($student);
+        return response()->streamDownload(function () use ($comments) {
+            echo $comments->toJson();
+        }, 'comments.json');
     }
 
     public function login(Request $request)

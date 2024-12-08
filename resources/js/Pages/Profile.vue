@@ -18,6 +18,11 @@
                     </div>
                 </div>
             </div>
+            <template v-if="downloadVisible">
+                <div class="mt-4">
+                    <a href="/api/download-comments" class="btn btn-primary">Download kommentarer</a>
+                </div>
+            </template>
             <div class="mt-4">
                 <h4>Du mangler at skrive kommentarer til følgende: (Du har skrevet til {{ totalComments + ' / ' + totalStudents }} elever)</h4>
                 <ul class="list-group">
@@ -44,7 +49,7 @@ import App from '@/js/App.vue';
 import { ref, defineProps, computed } from 'vue';
 import axios from 'axios';
 
-const props = defineProps(['student', 'students', 'totalStudents', 'totalComments']);
+const props = defineProps(['student', 'students', 'totalStudents', 'totalComments', 'downloadVisible']);
 const localStudents = ref(props.students);
 const first = ref(0);
 
