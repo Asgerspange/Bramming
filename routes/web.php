@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [RouteController::class, 'admin'])->name('admin');
-        Route::get('/admin/users', [RouteController::class, 'users']);
+        Route::get('/admin/users', [RouteController::class, 'users'])->name('admin-users');
         Route::get('/admin/actions', [RouteController::class, 'actions']);
     });
 });

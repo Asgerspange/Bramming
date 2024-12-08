@@ -11,7 +11,7 @@
 <body>
     @if (Auth::check())
         @if (Auth::user()->is_teacher)
-            <a href="{{ route('admin') }}">Admin</a>
+            <a href="{{ route('admin-users') }}">Admin</a>
         @endif
     @endif
     @inertia

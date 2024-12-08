@@ -1,5 +1,5 @@
 <template>
-    <App>
+    <Admin>
         <div class="container">
             <div class="row">
                 <div class="col-6">
@@ -23,11 +23,11 @@
                 </div>
             </div>
         </div>
-    </App>
+    </Admin>
 </template>
 
 <script setup>
-    import App from '@/js/App.vue';
+    import Admin from '@/js/Pages/Admin.vue';
     import { ref, defineProps } from 'vue';
     import axios from 'axios';
     
