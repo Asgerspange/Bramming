@@ -41,6 +41,12 @@
         align-items: center;
     }
 
+    @media (max-width: 768px) {
+        .student-layout {
+            flex-direction: column;
+        }
+    }
+
     .comments-section {
         flex: 2;
     }

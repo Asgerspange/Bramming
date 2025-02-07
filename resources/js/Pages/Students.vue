@@ -10,11 +10,11 @@
             />
             <div 
                 class="students-grid" 
-                :class="{ 'centered-grid': filteredStudents.length <= 5 }"
+                :class="{ 'centered-grid': paginatedStudents.length <= 5 }"
             >
                 <div 
                     class="student-card" 
-                    v-for="student in filteredStudents" 
+                    v-for="student in paginatedStudents" 
                     :key="student.unilogin_user" 
                     @click="goTo(student)"
                 >
@@ -26,28 +26,45 @@
                     <h2 class="student-name">{{ student.name }}</h2>
                 </div>
             </div>
+            <Paginator 
+                :rows="rowsPerPage" 
+                :totalRecords="filteredStudents.length" 
+                @page="onPageChange"
+            />
         </div>
     </App>
 </template>
 
 <script setup>
-    import App from '@/js/App.vue';
-    import { ref, computed } from 'vue';
+import App from '@/js/App.vue';
+import { ref, computed } from 'vue';
+import Paginator from 'primevue/paginator';
 
-    const props = defineProps(['students']);
-    const students = props.students;
-    const searchQuery = ref('');
+const props = defineProps(['students']);
+const students = props.students;
+const searchQuery = ref('');
+const currentPage = ref(0);
+const rowsPerPage = ref(12);
 
-    const filteredStudents = computed(() => {
-        if (!searchQuery.value) return students;
-        return students.filter((student) =>
-            student.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-        );
-    });
+const filteredStudents = computed(() => {
+    if (!searchQuery.value) return students;
+    return students.filter((student) =>
+        student.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+});
 
-    const goTo = (student) => {
-        window.location.href = '/student/' + student.unilogin_user;
-    };
+const paginatedStudents = computed(() => {
+    const start = currentPage.value * rowsPerPage.value;
+    return filteredStudents.value.slice(start, start + rowsPerPage.value);
+});
+
+const onPageChange = (event) => {
+    currentPage.value = event.page;
+};
+
+const goTo = (student) => {
+    window.location.href = '/student/' + student.unilogin_user;
+};
 </script>
 
 <style scoped>
