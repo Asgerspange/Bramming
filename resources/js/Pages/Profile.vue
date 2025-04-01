@@ -72,7 +72,7 @@ const onPageChange = (event) => {
 };
 
 const goTo = (student) => {
-    window.location.href = '/student/' + student.unilogin_user;
+    window.location.href = '/student/' + student.id;
 };
 
 const uploadImage = (event) => {
