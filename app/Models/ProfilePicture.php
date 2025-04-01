@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfilePicture extends Model
 {
-    protected $fillable = ['unilogin', 'picture'];
+    protected $fillable = ['student_id', 'picture'];
     public $table = 'profile_pictures';
     public $timestamps = false;
 }

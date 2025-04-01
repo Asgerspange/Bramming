@@ -19,7 +19,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'unilogin_user' => 'required|string|max:255|unique:students',
+            'unilogin_user' => 'required|string|max:255',
             'password' => 'required|string|min:8',
         ]);
 
@@ -56,6 +56,14 @@ class StudentController extends Controller
         Comment::query()->delete();
 
         return new JsonResponse(['message' => 'All students deleted successfully!']);
+    }
+
+    public function deleteStudent(Student $student) 
+    {
+        $student->delete();
+        Comment::where('student_id', $student->id)->delete();
+
+        return new JsonResponse(['message' => 'Student deleted successfully!']);
     }
 
     public function downloadComments()
@@ -107,7 +115,7 @@ class StudentController extends Controller
     {
         $student = Auth::user();
         ProfilePicture::updateOrCreate(
-            ['unilogin' => $student->unilogin_user],
+            ['student_id' => $student->id],
             ['picture' => $request->image]
         );
 

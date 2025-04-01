@@ -29,6 +29,7 @@ Route::middleware('web')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::post('/download-visibility', [StudentController::class, 'downloadVisibility']);
         Route::post('/delete-students', [StudentController::class, 'deleteStudents']);
+        Route::delete('/admin/delete/{student}', [StudentController::class, 'deleteStudent']);
 
         Route::post('/admin/make-teacher', [StudentController::class, 'makeTeacher']);
         Route::post('/admin/remove-teacher', [StudentController::class, 'removeTeacher']);

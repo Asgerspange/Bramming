@@ -41,7 +41,7 @@ class Student extends Authenticatable
 
     public function profilePicture()
     {
-        return $this->hasOne(ProfilePicture::class, 'unilogin', 'unilogin_user');
+        return $this->hasOne(ProfilePicture::class, 'student_id', 'id');
     }
 
     public function usersNotCommentedOn()

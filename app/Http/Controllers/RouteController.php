@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\ProfilePicture;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +23,9 @@ class RouteController extends Controller
         return Inertia::render('Admin');
     }
 
-    public function student(Request $request)
+    public function student(Student $student)
     {
-        $student = Student::where('unilogin_user', $request->unilogin)->first();
+        $student = $student->load('profilePicture');
         $comment = Comment::where('student_id', $student->id)->where('user_id', Auth::id())->first();
 
         return Inertia::render('Student/Student', ['student' => $student, 'comment' => $comment]);

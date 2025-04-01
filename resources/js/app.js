@@ -12,6 +12,7 @@ import InputText from 'primevue/inputtext';
 import Paginator from 'primevue/paginator';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Button from 'primevue/button';
 
 import 'primevue/resources/themes/aura-light-blue/theme.css';
 import '../css/app.css';
@@ -37,6 +38,7 @@ createInertiaApp({
             .component('Toast', Toast)
             .component('DataTable', DataTable)
             .component('Column', Column)
+            .component('Button', Button)
             .component('InputText', InputText)
             .component('Paginator', Paginator);
 

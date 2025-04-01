@@ -1,3 +1,3 @@
 <?php return array (
-  'downloadVisible' => 0,
+  'downloadVisible' => 1,
 );

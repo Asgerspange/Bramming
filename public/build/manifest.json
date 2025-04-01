@@ -12,7 +12,7 @@
     "src": "node_modules/primevue/resources/themes/aura-light-blue/fonts/Inter-roman.var.woff2"
   },
   "resources/js/app.js": {
-    "file": "assets/app-B2_XUtgj.js",
+    "file": "assets/app-BVBUgiZ0.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -20,7 +20,7 @@
       "___commonjsHelpers__-BosuxZz1.js"
     ],
     "css": [
-      "assets/app-CmlzyrKg.css"
+      "assets/app-C0YESL6F.css"
     ],
     "assets": [
       "assets/Inter-roman.var-C-r5W2Hj.woff2",

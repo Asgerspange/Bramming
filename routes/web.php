@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('login');
     })->name('logout');
 
-    Route::get('/student/{unilogin}', [RouteController::class, 'student']);
+    Route::get('/student/{student}', [RouteController::class, 'student']);
     Route::get('/students', [RouteController::class, 'students']);
     Route::get('/profile', [RouteController::class, 'profile'])->name('profile');
 

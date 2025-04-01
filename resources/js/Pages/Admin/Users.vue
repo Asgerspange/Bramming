@@ -61,6 +61,13 @@
                     </template>
                 </template>
             </Column>
+            <Column header="Actions" style="min-width: 8rem">
+                <template #body="{ data }">
+                    <template v-if="data.id !== page.props.auth.user.id">
+                        <Button @click="deleteUser(data.id)" text>Slet</Button>
+                    </template>
+                </template>
+            </Column>
         </DataTable>
     </Admin>
 </template>
@@ -70,6 +77,9 @@
     import { ref, onMounted, defineProps } from 'vue';
     import { FilterMatchMode } from 'primevue/api';
     import axios from 'axios';
+    import { usePage } from '@inertiajs/vue3';
+
+    const page = usePage();
 
     const customers = ref([]);
     const filters = ref({
@@ -98,6 +108,16 @@
             .then(() => {
                 let user = customers.value.find(user => user.id === id);
                 user.is_teacher = true;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    const deleteUser = (id) => {
+        axios.delete('/api/admin/delete/' + id)
+            .then(() => {
+                customers.value = customers.value.filter(user => user.id !== id);
             })
             .catch(error => {
                 console.error(error);
