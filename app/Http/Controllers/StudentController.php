@@ -78,7 +78,7 @@ class StudentController extends Controller
             'comments' => $comments,
             'logo' => $logo,
             'name' => $student->name,
-            'profilePicture' => $student->profilePicture->picture
+            'profilePicture' => $student?->profilePicture?->picture ?? 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('generic.png'))),
         ])->render();
 
         // return view('comments_pdf', [
