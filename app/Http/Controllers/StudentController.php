@@ -19,7 +19,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'unilogin_user' => 'required|string|max:255:unique:students',
+            'unilogin_user' => 'required|string|max:255|unique:students',
             'password' => 'required|string|min:8',
         ]);
 
