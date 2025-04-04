@@ -101,6 +101,7 @@
         <div class="profile">
             <img src="{{ $profilePicture }}">
         </div>
+        <h1>Kommentarer til {{ $name }}</h1>
         <div class="comments-container">
             <ul>
                 @foreach ($comments as $index => $comment)

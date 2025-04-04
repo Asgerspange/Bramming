@@ -66,9 +66,12 @@ class StudentController extends Controller
         return new JsonResponse(['message' => 'Student deleted successfully!']);
     }
 
-    public function downloadComments()
+    public function downloadComments(Student $student)
     {
-        $student = Student::with(['comments', 'profilePicture'])->find(Auth::id());
+        if (!Auth::user()->is_teacher) {
+            return redirect()->back()->with('error', 'You do not have permission to download comments!');
+        }
+        $student->load(['comments', 'profilePicture']);
 
         $dompdf = new Dompdf();
         $comments = $student->comments->pluck('comment')->toArray();

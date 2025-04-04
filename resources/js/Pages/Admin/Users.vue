@@ -63,6 +63,9 @@
             </Column>
             <Column header="Actions" style="min-width: 8rem">
                 <template #body="{ data }">
+                    <a :href="`/api/download-comments/`+data.id" class="btn btn-primary">
+                        <i class="material-symbols">picture_as_pdf</i>
+                    </a>
                     <template v-if="data.id !== page.props.auth.user.id">
                         <Button @click="deleteUser(data.id)" text>Slet</Button>
                     </template>

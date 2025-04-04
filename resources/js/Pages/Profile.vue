@@ -17,11 +17,11 @@
                 </div>
             </div>
             
-            <div v-if="downloadVisible" class="download-section">
+            <!-- <div v-if="downloadVisible" class="download-section">
                 <a href="/api/download-comments" class="download-button">
                     Download kommentarer
                 </a>
-            </div>
+            </div> -->
             
             <div class="comments-section">
                 <h4 class="section-title">

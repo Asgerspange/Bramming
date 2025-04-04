@@ -2,7 +2,7 @@
     <Admin>
         <div class="container">
             <div class="row">
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <button class="toggle-btn" @click="toggleDownloadVisibility">
                         {{ isDownloadVisible ? 'Skjul kommentarer' : 'Vis kommentarer' }}
                     </button>
@@ -13,7 +13,7 @@
                     <div v-else class="download-section">
                         <h2>Eleverne kan ikke hente deres kommentarer</h2>
                     </div>
-                </div>
+                </div> -->
     
                 <div class="col-6">
                     <h3>Slet ALLE elever og kommentarer (Til nyt skoleår, sletter ikke lærere)</h3>

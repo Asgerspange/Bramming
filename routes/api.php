@@ -34,5 +34,5 @@ Route::middleware('web')->group(function () {
         Route::post('/admin/make-teacher', [StudentController::class, 'makeTeacher']);
         Route::post('/admin/remove-teacher', [StudentController::class, 'removeTeacher']);
     });
-    Route::get('/download-comments', [StudentController::class, 'downloadComments']);
+    Route::get('/download-comments/{student}', [StudentController::class, 'downloadComments']);
 });
